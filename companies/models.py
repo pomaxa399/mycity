@@ -5,13 +5,15 @@ from categories.models import CategoryCompany, SubCategoryCompany
 class Company(models.Model):
     name = models.CharField('Название', max_length=160)
     description = models.TextField('Описание', blank=True)
-    logo = models.ImageField(verbose_name='Логотип', blank=True)
+    logo = models.ImageField(verbose_name='Логотип', blank=True, upload_to='company_logo/')
     advantage = models.CharField('Преимущества', max_length=250)
     url = models.SlugField(max_length=170, unique=True)
     frame_in = models.CharField('Фрейм внутри', max_length=250, blank=True)
     frame_out = models.CharField('Фрейм снаружи', max_length=250, blank=True)
-    category = models.ManyToManyField(CategoryCompany, related_name='category_company')
-    subcategory = models.ManyToManyField(SubCategoryCompany, related_name='subcategory_company')
+    category = models.ManyToManyField(CategoryCompany, related_name='category_company',
+                                      null=True, blank=True)
+    subcategory = models.ManyToManyField(SubCategoryCompany, related_name='subcategory_company',
+                                         null=True, blank=True)
 
     def __str__(self):
         return self.name
