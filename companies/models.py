@@ -24,8 +24,8 @@ class Company(models.Model):
 class Filial(models.Model):
     frame_in = models.CharField('Фрейм внутри', max_length=250, blank=True)
     frame_out = models.CharField('Фрейм снаружи', max_length=250, blank=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE,
-                                related_name='filial_company')
+    company = models.ForeignKey(Company, verbose_name='Компания',
+                                on_delete=models.CASCADE, related_name='filial_company')
 
     def __str__(self):
         return self.company.name
@@ -36,7 +36,7 @@ class Filial(models.Model):
 
 
 class Foto(models.Model):
-    name = models.CharField('Название', max_length=150)
+    title = models.CharField('Заголовок', max_length=150)
     description = models.TextField('Описание')
     image = models.ImageField('Изображение', upload_to='company_foto/')
     company = models.ForeignKey(Company, on_delete=models.CASCADE,
@@ -45,7 +45,7 @@ class Foto(models.Model):
                                related_name='foto_filial', null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.title
 
     class Meta:
         verbose_name = 'Изображение'
